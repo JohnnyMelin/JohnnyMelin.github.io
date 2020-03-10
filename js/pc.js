@@ -1,5 +1,5 @@
 /**
-* @Created Feb 25, 2019
+* @Created Feb 18, 2020
 * @LastUpdate ...
 * @author Johnny Melin, Oscar Ullberg, Martin Marklund
 */
@@ -9,76 +9,48 @@
 // Data set: https://www.kaggle.com/kemical/kickstarter-projects/data#ks-projects-201801.csv
 
 // http://bl.ocks.org/piwodlaiwo/cbce7d163349da5c615a08b6e7a12d69
-function pc(dota){
+
+function pc(data) {
 
       var excludedDims = ['ID', 'category', 'pledged', 'currency','usd_pledged' , 'goal', ,'name',''];
       var happyDims = ['main_category','launched','deadline','state','backers','country', 'usd_goal_real', 'usd_pledged_real'];
 
-      var data = dota;
-      var div = '#pc-chart';
-      var parentWidth = $(div).parent().width();
       var margin = {top: 50, right: 50, bottom: 50, left: 50},
       width = 960 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
+      console.log(data);
       // Create dimensions for each axis
       var dimensions = [
             {
-                  name: "main_category",
-                  scale: d3.scale.ordinal().rangePoints([0, height]),
-                  type: "string"
-            },
-            /*{
-                  name: "deadline",
-                  scale: d3.scale.ordinal().rangePoints([0, height]),
-                  type: "string"
-            },
-            {
-                  name: "launched",
-                  scale: d3.scale.ordinal().rangePoints([0, height]),
-                  type: "string"
-            },*/
-            {
-                  name: "dateRange",
+                  name: "number_of_days",
                   scale: d3.scale.linear().range([height,0]),
                   type: "number",
-
             },
             {
-                  name: "successRate",
-                  scale: d3.scale.linear().range([height,0]),
+                  name: "profit_rate",
+                  scale: d3.scale.log().range([height,0]),
                   type: "number",
-
             },
             {
                   name: "pledged",
-                  scale: d3.scale.linear().range([height, 0]),
+                  scale: d3.scale.log().range([height, 0]),
                   type: "number"
-            },
-            {
-                  name: "state",
-                  scale: d3.scale.ordinal().rangePoints([0, height]),
-                  type: "string"
             },
             {
                   name: "backers",
-                  scale: d3.scale.linear().range([height, 0]),
+                  scale: d3.scale.log().range([height, 0]),
                   type: "number"
             },
             {
-                  name: "country",
-                  scale: d3.scale.ordinal().rangePoints([0, height]),
-                  type: "string"
-            },
-            {
                   name: "usd_goal_real",
-                  scale: d3.scale.log().range([height, 0]),
+                  scale: d3.scale.linear().range([height, 0]),
                   type: "number"
             }
       ];
 
       var x = d3.scale.ordinal().domain(dimensions.map(function(d) { return d.name; })).rangePoints([0, width]),
-      y = {},
+      //y = {},
       dragging = {};
 
       var line = d3.svg.line(),
@@ -86,7 +58,8 @@ function pc(dota){
       background,
       foreground;
 
-      var svg = d3.select("body").append("svg")
+      // Important to select our container
+      var svg = d3.select("#parallel-coordinates")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
@@ -95,10 +68,7 @@ function pc(dota){
       //Create the dimensions depending on attribute "type" (number|string)
       //The x-scale calculates the position by attribute dimensions[x].name
       dimensions.forEach(function(dimension) {
-            dimension.scale.domain(dimension.type === "number"
-            ? d3.extent(data, function(d) { return +d[dimension.name]; })
-            : data.map(function(d) { return d[dimension.name]; }).sort());
-            // ["success", "failed", "canceled", "undefined", "live"]
+            dimension.scale.domain(d3.extent(data, function(d) { return +d[dimension.name]; }));
       });
 
       // Add grey background lines for context.
@@ -114,16 +84,19 @@ function pc(dota){
       foreground = svg.append("g")
             .attr("class", "foreground")
             .style("stroke", "steelblue")
+            .style("stroke-width", "1px")
             .selectAll("path")
             .data(data)
             .enter().append("path")
             .attr("d", path);
 
-      var details = d3.select("body").append("svg")
+      var details = d3.select(".detailOnDemand")
             .attr("class", "detailOnDemand")
-            .attr("width", 1000)
-            .attr("height", 1000)
-            .style("background-color", "red")
+            .attr("width", 100)
+            .attr("height", 100)
+            .attr("font-weight", 3)
+            .attr("id", "detailbox")
+
 
       var detailOnCommand = svg.selectAll(".foreground path")
       .on("mouseover", function() {
@@ -137,11 +110,23 @@ function pc(dota){
             var self = d3.select(this)
             var c = self.attr("class", "path")
                         .style("stroke","steelblue")
-                        .style("stroke-width", "0.5px")
+                        .style("stroke-width", "1px")
             })
       .on("click", function() {
             var self = d3.select(this)
             var dede = self[0][0].__data__ // This is an array containting the clicked elements data entry
+            document.getElementById('Name').innerHTML = dede.name;
+            document.getElementById('Country').innerHTML = dede.country;
+            document.getElementById('Main').innerHTML = dede.main_category;
+            document.getElementById('Sub').innerHTML = dede.category;
+            document.getElementById('Launch').innerHTML = dede.launched;
+            document.getElementById('Deadline').innerHTML = dede.deadline;
+            document.getElementById('Days').innerHTML = dede.number_of_days;
+            document.getElementById('State').innerHTML = dede.state;
+            document.getElementById('Backers').innerHTML = dede.backers;
+            document.getElementById('Pledged').innerHTML = dede.usd_pledged_real;
+            document.getElementById('Goal').innerHTML = dede.usd_goal_real;
+            document.getElementById('Profit').innerHTML = dede.profit_rate + '%';
             })
 
 
@@ -180,9 +165,7 @@ function pc(dota){
       // Add an axis and title.
       g.append("g")
       .attr("class", "axis")
-      .each(function(d) {
-            //if(d.type === "number"){ axis.ticks(3); }
-            d3.select(this).call(axis.scale(d.scale)); })
+      .each(function(d) { d3.select(this).call(axis.scale(d.scale)); })
             .append("text")
             .style("text-anchor", "middle")
             .attr("class", "axis-label")

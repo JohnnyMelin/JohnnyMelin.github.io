@@ -5,66 +5,109 @@
 -->
 
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>TNM048 Wine Reviews Project</title>
-  <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
+  <title>TNM048 Kickstarter projects</title>
   <link rel="stylesheet" href="./css/main.css">
 
   <!--<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" /> -->
-
-
 </head>
+<h1>Kickstarter data</h1>
+<p>So you want to create a kickstarter project, huh? Well, then you might want to consider these things:</p>
 <body class="application">
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
-  <script src="https://d3js.org/queue.v1.min.js"></script>
-  <script src="https://d3js.org/topojson.v1.min.js"></script>
+  <script src="http://d3js.org/queue.v1.min.js"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
   <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.min.js"></script> <!-- This is topojson library for the world map -->
 
-  <div class="container-fluid">
+  <!-- Sankey diagram -->
+  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+  <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+  <!--<script src="https://www.amcharts.com/lib/4/themes/spiritedaway.js"></script>-->
+  <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 
-      <!-- PC plot -->
-      <div class="row">
-          <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <div class="card">
-              <div class="card-header text-center">TNM048 Kickstart Projects</div>
-              <div class="card-body">
-                <div id="parcoord"></div>
-                <div id="example"></div>
-              </div>
-            </div>
-          </div>
+  <!-- Section 1: Map-->
+  <div>
+    <h2>Where should I launch my kickstarter?</h2>
+    <p>Contrary to common belief, you cannot launch a kickstarter anywhere in the world. 
+      <br/>You are actually limited to a select few countries. You can use the map below to find out some more information about the available countries!
+    </p>
+    <h3>Hover over a country to show more data.</h3>
+    <button onclick="filterDefault()">Show all countries</button>
+    <button onclick="filterHigh()">Show countries with high success rate</button>
+    <button onclick="filterMedium()">Show countries with medium success rate</button>
+    <button onclick="filterLow()">Show countries with low success rate</button>
+    <div id="map-container"></div> <!-- Here we will have the world map. -->
+  </div>
+  
+  <!-- Section 2: Parellel sets -->
+  <div>
+    <h2>What should my kickstarter be about?</h2>
+    <p>Now that you've figured out <strong>where</strong> you want to launch your kikcstarter, you might want to think about <strong>what</strong> it should be about?</p>
+    <h3>Use the diagram below to see how well different types of projects are doing.</h3>
+    <div id="parallel-sets-container"></div>  <!-- Here we will have the parallel coordinates.-->
+  </div>
+  <!-- Section 3: Parallel coordinates -->
+  <div>
+    <h2>What about the numbers?</h2>
+    <p>Maybe you are the kind of person who is into some more statistics? Well, of course you are, otherwise you wouldn't be here!
+      <br/>In this section you can view the numeric relations in projects, like how the number of backers correlate to money pledged.
+    </p>
+    <h3>Use the diagram to explore the numeric relations, and click on a line to get more information about that specific project.</h3>
+    <div id="parallel-coordinates-container">
+      <svg id="parallel-coordinates"></svg>
+      <div class="detailOnDemand">
+        <h1>Details on demand</h1>
+        <p class="bold">Name: <font id ="Name" style="font-weight: normal;"></font></p>
+        <p class="bold">Country of Origin: <font id ="Country" style="font-weight: normal;"></font></p>
+        <p class="bold">Main Category: <font id ="Main" style="font-weight: normal;"></font></p>
+        <p class="bold">Sub Category: <font id ="Sub" style="font-weight: normal;"></font></p>
+        <p class="bold">Launch date: <font id ="Launch" style="font-weight: normal;"></font></p>
+        <p class="bold">Deadline: <font id ="Deadline" style="font-weight: normal;"></font></p>
+        <p class="bold">Days actives: <font id ="Days" style="font-weight: normal;"></font></p>
+        <p class="bold">Current State: <font id ="State" style="font-weight: normal;"></font></p>
+        <p class="bold">Backers: <font id ="Backers" style="font-weight: normal;"></font></p>
+        <p class="bold">Pledged: <font id ="Pledged" style="font-weight: normal;"></font></p>
+        <p class="bold">Goal: <font id ="Goal" style="font-weight: normal;"></font></p>
+        <p class="bold">Profit: <font id ="Profit" style="font-weight: normal;"></font></p>
       </div>
-  </div> <!-- contriner -->
-
-  <!--<script src="./lib/jquery/jquery.min.js"></script>
-  <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+    </div>
+  </div>
+  <!-- Fun facts -->
+  <div>
+    <h2>Fun facts:</h2>
+    <ul>
+      <li>The most successful country is the United States of America with a success rate of 37%. The least successful is Italy with 15%.</li>
+      <li>The most successful project is "VULFPECK /// The Beautiful Game", which earned 10,427,789% of the money they asked for. 
+        <br/> You can listen to the result <a href="https://www.youtube.com/watch?v=DRdnpKRvMwI">here</a>.</li>
+      <li>The project that earned the most money was a smartwatch brand, they earned $20,338,986!</li>
+      <li>The most failed project was "FUCK Potato Salad. Paleo Potato Brownies!", which, contrary to what the name suggests, wanted to send potatos to the moon. 
+        <br/>They asked for $166,361,390 and got $0. The project was active for 30 days.</li>
+    </ul>
+  </div>
+  <script src="./lib/jquery/jquery.min.js"></script>
   <script src="./lib/d3/d3.min.js"></script>
   <script src="//d3js.org/d3.v3.min.js"></script>
   <script src="./lib/queue/queue.js" type='text/javascript'></script>
-  <script src="./lib/colorbrewer/colorbrewer.js" type='text/javascript'></script>-->
-
-  <!-- Hosted libraries -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
-  <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.15.0/d3.min.js"></script>
-
+  <script src="./lib//dataMaps/datamaps.world.min.js"></script>
 
   <!-- Modules -->
+  <script src='./js/pss.js' type='text/javascript'></script>
   <script src='./js/pc.js' type='text/javascript'></script>
-  <script src='./js/world.js' type='text/javascript'></script>
+  <script src='./js/world.js' type='text/javascript'></script>  <!-- World map -->
   <script src='./js/main.js' type='text/javascript'></script>
   <script src='./js/d3-tip.js' type='text/javascript'></script>
+  <script src='./js/getSankeyCSV.js' type='text/javascript'></script>
+
+
+  <!-- Remote modules -->
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+
 
 </body>
 </html>

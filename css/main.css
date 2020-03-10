@@ -1,4 +1,27 @@
+body {
+  margin: auto 5rem;
+  background-color: #fbffee;
+}
+#container {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+}
 
+#chartdiv {
+  width: 100%;
+  height: 800px
+}
+
+sankey: {
+      link: {
+            color:{
+                  stroke: 'red';
+                  strokeWidth: 17;
+            }
+      }
+}
 .background path {
   fill: none;
   /*stroke: lightgray;*/
@@ -9,7 +32,7 @@
 .foreground path {
   fill: none;
   /*stroke: steelblue;*/
-  stroke-width: 0.5px;
+  //stroke-width: 0.5px;
 }
 .dot {
   stroke: #000;
@@ -117,6 +140,14 @@
      left: 100%;
    }
 
+p {
+  font-size: 20;
+}
+
+p.bold  {
+  font-weight: bold;
+}
+
 div.tooltip {
   position: absolute;
   text-align: center;
@@ -165,11 +196,7 @@ div.tooltip {
             fill: steelblue;
       }
 
-      svg .detailOnDemand {
-            width: 1000;
-            height:1000;
-            fill: green;
-      }
+
 
 
 
@@ -189,4 +216,85 @@ div.tooltip {
       .axis text {
       text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
       cursor: move;
+      }
+
+
+      #parallel-coordinates-container {
+        display: grid;
+        grid-template-columns: 5fr 1fr 1fr;
+        margin: 50px 50px 50px 50px;
+        width: 100%;
+        height: 500px;
+      }
+
+      #parallel-coordinates-container svg {
+
+        background-color: #fbffee;
+
+        border: 1px solid black;
+        border-radius: 30px;
+      }
+
+      #parallel-coordinates-container div.detailOnDemand {
+        padding: 1rem;
+
+        width: 1000;
+        height:1000;
+
+        background-color: #fbffee;
+
+        order: 3;
+
+        border: 1px solid black;
+        border-radius: 30px;
+      }
+
+
+      #parallel-sets-container {
+        width: 100%;
+        height: 500px;
+        margin: 2rem;
+      }
+
+
+      /* MARTINS TESTSKIT */
+      #map-container {
+        width: 1000px;
+        height: 700px;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "map details";
+
+        background-color: #fbffee;
+      }
+
+      #map-container svg {
+        margin: 2rem;
+        grid-area: map;
+
+        width: 1000px;
+      }
+
+      .datamaps-hoverover {
+        margin: 2rem;
+        padding: 1rem;
+
+        grid-area: details;
+
+        /*Force this shit to act the way I want*/
+        top: 0 !important;
+        left: 0 !important;
+
+        width: 400px !important;
+        height: 500px !important;
+
+        display: block !important;
+        position: static !important;
+
+        border: 1px solid black;
+        border-radius: 30px;
+      }
+      .datamaps-hoverover p {
+        font-size: 25px;
       }
