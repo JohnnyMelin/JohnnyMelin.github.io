@@ -6,6 +6,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,10 +20,12 @@
 </head>
 <h1>Kickstarter data by Oscar, Martin and Johnny</h1>
 <p>So you want to create a kickstarter project, huh? Well, then you might want to consider these things:</p>
+
 <body class="application">
   <script src="http://d3js.org/queue.v1.min.js"></script>
   <script src="http://d3js.org/topojson.v1.min.js"></script>
-  <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.min.js"></script> <!-- This is topojson library for the world map -->
+  <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.min.js"></script>
+  <!-- This is topojson library for the world map -->
 
   <!-- Sankey diagram -->
   <script src="https://www.amcharts.com/lib/4/core.js"></script>
@@ -33,8 +36,9 @@
   <!-- Section 1: Map-->
   <div>
     <h2>Where should I launch my kickstarter?</h2>
-    <p>Contrary to common belief, you cannot launch a kickstarter anywhere in the world. 
-      <br/>You are actually limited to a select few countries. You can use the map below to find out some more information about the available countries!
+    <p>Contrary to common belief, you cannot launch a kickstarter anywhere in the world.
+      <br />You are actually limited to a select few countries. You can use the map below to find out some more
+      information about the available countries!
     </p>
     <h3>Hover over a country to show more data.</h3>
     <button onclick="filterDefault()">Show all countries</button>
@@ -43,37 +47,53 @@
     <button onclick="filterLow()">Show countries with low success rate</button>
     <div id="map-container"></div> <!-- Here we will have the world map. -->
   </div>
-  
+
   <!-- Section 2: Parellel sets -->
   <div>
     <h2>What should my kickstarter be about?</h2>
-    <p>Now that you've figured out <strong>where</strong> you want to launch your kikcstarter, you might want to think about <strong>what</strong> it should be about?</p>
+    <p>Now that you've figured out <strong>where</strong> you want to launch your kikcstarter, you might want to think
+      about <strong>what</strong> it should be about?</p>
     <h3>Use the diagram below to see how well different types of projects are doing.</h3>
-    <div id="parallel-sets-container"></div>  <!-- Here we will have the parallel coordinates.-->
+    <div id="parallel-sets-container"></div> <!-- Here we will have the parallel coordinates.-->
   </div>
   <!-- Section 3: Parallel coordinates -->
   <div>
     <h2>What about the numbers?</h2>
-    <p>Maybe you are the kind of person who is into some more statistics? Well, of course you are, otherwise you wouldn't be here!
-      <br/>In this section you can view the numeric relations in projects, like how the number of backers correlate to money pledged.
+    <p>Maybe you are the kind of person who is into some more statistics? Well, of course you are, otherwise you
+      wouldn't be here!
+      <br />In this section you can view the numeric relations in projects, like how the number of backers correlate to
+      money pledged.
     </p>
-    <h3>Use the diagram to explore the numeric relations, and click on a line to get more information about that specific project.</h3>
+    <h3>Use the diagram to explore the numeric relations, and click on a line to get more information about that
+      specific project.</h3>
     <div id="parallel-coordinates-container">
       <svg id="parallel-coordinates"></svg>
       <div class="detailOnDemand">
         <h1>Details on demand</h1>
-        <p class="bold">Name: <font id ="Name" style="font-weight: normal;"></font></p>
-        <p class="bold">Country of Origin: <font id ="Country" style="font-weight: normal;"></font></p>
-        <p class="bold">Main Category: <font id ="Main" style="font-weight: normal;"></font></p>
-        <p class="bold">Sub Category: <font id ="Sub" style="font-weight: normal;"></font></p>
-        <p class="bold">Launch date: <font id ="Launch" style="font-weight: normal;"></font></p>
-        <p class="bold">Deadline: <font id ="Deadline" style="font-weight: normal;"></font></p>
-        <p class="bold">Days actives: <font id ="Days" style="font-weight: normal;"></font></p>
-        <p class="bold">Current State: <font id ="State" style="font-weight: normal;"></font></p>
-        <p class="bold">Backers: <font id ="Backers" style="font-weight: normal;"></font></p>
-        <p class="bold">Pledged: <font id ="Pledged" style="font-weight: normal;"></font></p>
-        <p class="bold">Goal: <font id ="Goal" style="font-weight: normal;"></font></p>
-        <p class="bold">Profit: <font id ="Profit" style="font-weight: normal;"></font></p>
+        <p class="bold">Name: <font id="Name" style="font-weight: normal;"></font>
+        </p>
+        <p class="bold">Country of Origin: <font id="Country" style="font-weight: normal;"></font>
+        </p>
+        <p class="bold">Main Category: <font id="Main" style="font-weight: normal;"></font>
+        </p>
+        <p class="bold">Sub Category: <font id="Sub" style="font-weight: normal;"></font>
+        </p>
+        <p class="bold">Launch date: <font id="Launch" style="font-weight: normal;"></font>
+        </p>
+        <p class="bold">Deadline: <font id="Deadline" style="font-weight: normal;"></font>
+        </p>
+        <p class="bold">Days actives: <font id="Days" style="font-weight: normal;"></font>
+        </p>
+        <p class="bold">Current State: <font id="State" style="font-weight: normal;"></font>
+        </p>
+        <p class="bold">Backers: <font id="Backers" style="font-weight: normal;"></font>
+        </p>
+        <p class="bold">Pledged: <font id="Pledged" style="font-weight: normal;"></font>
+        </p>
+        <p class="bold">Goal: <font id="Goal" style="font-weight: normal;"></font>
+        </p>
+        <p class="bold">Profit: <font id="Profit" style="font-weight: normal;"></font>
+        </p>
       </div>
     </div>
   </div>
@@ -81,12 +101,16 @@
   <div>
     <h2>Fun facts:</h2>
     <ul>
-      <li>The most successful country is the United States of America with a success rate of 37%. The least successful is Italy with 15%.</li>
-      <li>The most successful project is "VULFPECK /// The Beautiful Game", which earned 10,427,789% of the money they asked for. 
-        <br/> You can listen to the result <a href="https://www.youtube.com/watch?v=DRdnpKRvMwI">here</a>.</li>
-      <li>The project that earned the most money was a smartwatch brand, they earned $20,338,986! Their goal was $500,000.</li>
-      <li>The most failed project was "FUCK Potato Salad. Paleo Potato Brownies!", which, contrary to what the name suggests, wanted to send potatos to the moon. 
-        <br/>They asked for $166,361,390 and got $0. The project was active for 30 days.</li>
+      <li>The most successful country is the United States of America with a success rate of 37%. The least successful
+        is Italy with 15%.</li>
+      <li>The most successful project is "VULFPECK /// The Beautiful Game", which earned 10,427,789% of the money they
+        asked for.
+        <br /> You can listen to the result <a href="https://www.youtube.com/watch?v=DRdnpKRvMwI">here</a>.</li>
+      <li>The project that earned the most money was a smartwatch brand, they earned $20,338,986! Their goal was
+        $500,000.</li>
+      <li>The most failed project was "FUCK Potato Salad. Paleo Potato Brownies!", which, contrary to what the name
+        suggests, wanted to send potatos to the moon.
+        <br />They asked for $166,361,390 and got $0. The project was active for 30 days.</li>
     </ul>
   </div>
   <script src="./lib/jquery/jquery.min.js"></script>
@@ -98,16 +122,10 @@
   <!-- Modules -->
   <script src='./js/pss.js' type='text/javascript'></script>
   <script src='./js/pc.js' type='text/javascript'></script>
-  <script src='./js/world.js' type='text/javascript'></script>  <!-- World map -->
+  <script src='./js/world.js' type='text/javascript'></script> <!-- World map -->
   <script src='./js/main.js' type='text/javascript'></script>
-  <script src='./js/d3-tip.js' type='text/javascript'></script>
-  <script src='./js/getSankeyCSV.js' type='text/javascript'></script>
-
-
-  <!-- Remote modules -->
+  <!--<script src='./js/d3-tip.js' type='text/javascript'></script>-->
   <script src="https://d3js.org/d3.v3.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
-
 
 </body>
 </html>

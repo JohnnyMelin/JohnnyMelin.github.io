@@ -3,10 +3,10 @@ body {
   background-color: #fbffee;
 }
 #container {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 #chartdiv {
@@ -14,25 +14,15 @@ body {
   height: 800px
 }
 
-sankey: {
-      link: {
-            color:{
-                  stroke: 'red';
-                  strokeWidth: 17;
-            }
-      }
-}
 .background path {
   fill: none;
-  /*stroke: lightgray;*/
   stroke-width: 0.5px;
   pointer-events: stroke;
 }
 
 .foreground path {
   fill: none;
-  /*stroke: steelblue;*/
-  //stroke-width: 0.5px;
+  stroke-width: 0.5px;
 }
 .dot {
   stroke: #000;
@@ -82,63 +72,63 @@ sankey: {
 
 #mapid { height: 180px; }
 /* Tooltip CSS */
-   .d3-tip {
-   line-height: 1.5;
-   font-weight: 400;
-   font-family:"avenir next", Arial, sans-serif;
-   padding: 6px;
-   background: rgba(0, 0, 0, 0.6);
-   color: #FFA500;
-   border-radius: 1px;
-   pointer-events: none;
-   }
+.d3-tip {
+line-height: 1.5;
+font-weight: 400;
+font-family:"avenir next", Arial, sans-serif;
+padding: 6px;
+background: rgba(0, 0, 0, 0.6);
+color: #FFA500;
+border-radius: 1px;
+pointer-events: none;
+}
 
-   /* Creates a small triangle extender for the tooltip */
-   .d3-tip:after {
-     box-sizing: border-box;
-     display: inline;
-     font-size: 8px;
-     width: 100%;
-     line-height: 1.5;
-     color: rgba(0, 0, 0, 0.6);
-     position: absolute;
-     pointer-events: none;
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 8px;
+  width: 100%;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  pointer-events: none;
 
-   }
+}
 
-   /* Northward tooltips */
-   .d3-tip.n:after {
-     content: "\25BC";
-     margin: -1px 0 0 0;
-     top: 100%;
-     left: 0;
-     text-align: center;
-   }
+/* Northward tooltips */
+.d3-tip.n:after {
+  content: "\25BC";
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+  text-align: center;
+}
 
-   /* Eastward tooltips */
-   .d3-tip.e:after {
-     content: "\25C0";
-     margin: -4px 0 0 0;
-     top: 50%;
-     left: -8px;
-   }
+/* Eastward tooltips */
+.d3-tip.e:after {
+  content: "\25C0";
+  margin: -4px 0 0 0;
+  top: 50%;
+  left: -8px;
+}
 
-   /* Southward tooltips */
-   .d3-tip.s:after {
-     content: "\25B2";
-     margin: 0 0 1px 0;
-     top: -8px;
-     left: 0;
-     text-align: center;
-   }
+/* Southward tooltips */
+.d3-tip.s:after {
+  content: "\25B2";
+  margin: 0 0 1px 0;
+  top: -8px;
+  left: 0;
+  text-align: center;
+}
 
-   /* Westward tooltips */
-   .d3-tip.w:after {
-     content: "\25B6";
-     margin: -4px 0 0 -1px;
-     top: 50%;
-     left: 100%;
-   }
+/* Westward tooltips */
+.d3-tip.w:after {
+  content: "\25B6";
+  margin: -4px 0 0 -1px;
+  top: 50%;
+  left: 100%;
+}
 
 p {
   font-size: 20;
@@ -170,131 +160,124 @@ div.tooltip {
     opacity: 0.5;
 }
 
-      svg {
-            font: 10px sans-serif;
-      }
+svg {
+      font: 10px sans-serif;
+}
 
-      svg .countries {
-            fill: green;
-            stroke: black;
-            stroke-width: 0.5px;
-      }
+svg .countries {
+  fill: green;
+  stroke: black;
+  stroke-width: 0.5px;
+}
 
-      svg .ignore {
-            fill: black;
-      }
-      svg .countries:hover{
-           fill: lightgreen;
-           stroke: black;
-      }
+svg .ignore {
+  fill: black;
+}
+svg .countries:hover{
+  fill: lightgreen;
+  stroke: black;
+}
 
-      svg .countries:active{
-            fill: red;
-      }
+svg .countries:active{
+  fill: red;
+}
 
-      svg .globe {
-            fill: steelblue;
-      }
+svg .globe {
+  fill: steelblue;
+}
 
+.brush .extent {
+fill-opacity: .3;
+stroke: #fff;
+shape-rendering: crispEdges;
+}
 
+.axis line,
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
 
+.axis text {
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+  cursor: move;
+}
 
+#parallel-coordinates-container {
+  display: grid;
+  grid-template-columns: 5fr 1fr 1fr;
+  margin: 50px 50px 50px 50px;
+  width: 100%;
+  height: 500px;
+}
 
-      .brush .extent {
-      fill-opacity: .3;
-      stroke: #fff;
-      shape-rendering: crispEdges;
-      }
+#parallel-coordinates-container svg {
 
-      .axis line,
-      .axis path {
-      fill: none;
-      stroke: #000;
-      shape-rendering: crispEdges;
-      }
+  background-color: #fbffee;
 
-      .axis text {
-      text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
-      cursor: move;
-      }
+  border: 1px solid black;
+  border-radius: 30px;
+}
 
+#parallel-coordinates-container div.detailOnDemand {
+  padding: 1rem;
 
-      #parallel-coordinates-container {
-        display: grid;
-        grid-template-columns: 5fr 1fr 1fr;
-        margin: 50px 50px 50px 50px;
-        width: 100%;
-        height: 500px;
-      }
+  width: 1000;
+  height:1000;
 
-      #parallel-coordinates-container svg {
+  background-color: #fbffee;
 
-        background-color: #fbffee;
+  order: 3;
 
-        border: 1px solid black;
-        border-radius: 30px;
-      }
+  border: 1px solid black;
+  border-radius: 30px;
+}
 
-      #parallel-coordinates-container div.detailOnDemand {
-        padding: 1rem;
+#parallel-sets-container {
+  width: 100%;
+  height: 500px;
+  margin: 2rem;
+}
 
-        width: 1000;
-        height:1000;
+#map-container {
+  width: 1000px;
+  height: 700px;
 
-        background-color: #fbffee;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "map details";
 
-        order: 3;
+  background-color: #fbffee;
+}
 
-        border: 1px solid black;
-        border-radius: 30px;
-      }
+#map-container svg {
+  margin: 2rem;
+  grid-area: map;
 
+  width: 1000px;
+}
 
-      #parallel-sets-container {
-        width: 100%;
-        height: 500px;
-        margin: 2rem;
-      }
+.datamaps-hoverover {
+  margin: 2rem;
+  padding: 1rem;
 
+  grid-area: details;
 
-      /* MARTINS TESTSKIT */
-      #map-container {
-        width: 1000px;
-        height: 700px;
+  /*Force this to act the way I want*/
+  top: 0 !important;
+  left: 0 !important;
 
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas: "map details";
+  width: 400px !important;
+  height: 500px !important;
 
-        background-color: #fbffee;
-      }
+  display: block !important;
+  position: static !important;
 
-      #map-container svg {
-        margin: 2rem;
-        grid-area: map;
+  border: 1px solid black;
+  border-radius: 30px;
+}
 
-        width: 1000px;
-      }
-
-      .datamaps-hoverover {
-        margin: 2rem;
-        padding: 1rem;
-
-        grid-area: details;
-
-        /*Force this shit to act the way I want*/
-        top: 0 !important;
-        left: 0 !important;
-
-        width: 400px !important;
-        height: 500px !important;
-
-        display: block !important;
-        position: static !important;
-
-        border: 1px solid black;
-        border-radius: 30px;
-      }
-      .datamaps-hoverover p {
-        font-size: 25px;
-      }
+.datamaps-hoverover p {
+  font-size: 25px;
+}
